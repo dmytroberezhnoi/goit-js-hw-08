@@ -12,14 +12,14 @@ const player = new Player(iframe);
 //   console.log('title:', title);
 // });
 
-const onPlay = throttle(function (data) {
+const onPlay = function (data) {
   localStorage.setItem(
     'videoplayer-current-time',
     JSON.stringify(data.seconds)
   );
-}, 1000);
+};
 
-player.on('timeupdate', onPlay);
+player.on('timeupdate', throttle(onPlay, 1000));
 
 const currentTime = JSON.parse(
   localStorage.getItem('videoplayer-current-time')
